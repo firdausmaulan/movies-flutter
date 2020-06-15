@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies/features/movie_detail.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 import 'package:movies/utils/images.dart' as Images;
 
@@ -42,6 +42,12 @@ class MovieListState extends State<MovieListPage> {
           itemBuilder: (context, position) {
             return GestureDetector(
               child: MovieCell(movies, position),
+              onTap: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) {
+                  return new MovieDetailPage(movies[position]);
+                }));
+              },
             );
           },
           separatorBuilder: (BuildContext context, int index) => Divider(),
@@ -58,19 +64,18 @@ class MovieCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //80% of screen width
-    double c_width = MediaQuery.of(context).size.width * 0.75;
+    double containerWidth = MediaQuery.of(context).size.width - 90;
     return Row(
       children: <Widget>[
         FadeInImage.assetNetwork(
-          placeholder: Images.ic_question,
+          placeholder: Images.ic_poster_holder,
           image: Constants.IMAGE_URL + movies[position]['poster_path'],
-          width: 75,
           height: 100,
+          width: 75,
         ),
         Container(
-          padding: EdgeInsets.all(4),
-          width: c_width,
-          height: 110,
+          width: containerWidth,
+          height: 100,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
