@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:movies/features/movie_detail.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 import 'package:movies/utils/images.dart' as Images;
+import 'package:movies/features/movie_list_controller.dart' as controller;
 
 class MovieListPage extends StatefulWidget {
   @override
@@ -12,46 +10,86 @@ class MovieListPage extends StatefulWidget {
 }
 
 class MovieListState extends State<MovieListPage> {
+  var showLoading = true;
+  var showError = false;
   var movies;
 
-  Future<Map> requestMovies() async {
-    var url = Constants.BASE_URL +
-        "/movie/top_rated?" +
-        "&api_key=${Constants.API_KEY}";
-    var response = await http.get(url);
-    return json.decode(response.body);
-  }
-
-  void getData() async {
-    var data = await requestMovies();
+  Future<void> getData() async {
+    showLoading = true;
+    var data = await controller.requestMovies();
     setState(() {
-      movies = data['results'];
+      showLoading = false;
+      if (data != null) {
+        showError = false;
+        movies = data['results'];
+      } else {
+        showError = true;
+      }
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(Constants.APP_NAME),
         ),
-        body: ListView.separated(
-          padding: EdgeInsets.only(top: 4, bottom: 4),
-          itemCount: movies == null ? 0 : movies.length,
-          itemBuilder: (context, position) {
-            return GestureDetector(
-              child: MovieCell(movies, position),
-              onTap: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) {
-                  return new MovieDetailPage(movies[position]);
-                }));
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => Divider(),
-        ));
+        body: showLoading
+            ? loadingWidget()
+            : showError ? errorWidget() : mainWidget());
+  }
+
+  Widget mainWidget() {
+    return RefreshIndicator(
+      onRefresh: getData,
+      child: ListView.separated(
+        padding: EdgeInsets.only(top: 4, bottom: 4),
+        itemCount: movies == null ? 0 : movies.length,
+        itemBuilder: (context, position) {
+          return GestureDetector(
+            child: MovieCell(movies, position),
+            onTap: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                return new MovieDetailPage(movies[position]);
+              }));
+            },
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => Divider(),
+      ),
+    );
+  }
+
+  Widget loadingWidget() {
+    return Container(
+      alignment: Alignment.center,
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget errorWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Image.asset(Images.ic_back_drop_holder),
+        SizedBox(height: 5),
+        Text("Ups something went wrong!"),
+        SizedBox(height: 5),
+        OutlineButton(
+          onPressed: getData,
+          child: Text(
+            "Refresh",
+            style: TextStyle(color: Constants.PRIMARY_COLOR),
+          ),
+        )
+      ],
+    );
   }
 }
 
