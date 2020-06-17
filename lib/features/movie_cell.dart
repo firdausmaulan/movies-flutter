@@ -17,7 +17,7 @@ class MovieCell extends StatelessWidget {
       children: <Widget>[
         FadeInImage.assetNetwork(
           placeholder: Images.ic_poster_holder,
-          image: Constants.IMAGE_URL + movies.elementAt(position).poster_path,
+          image: Constants.IMAGE_URL + movies.elementAt(position).poster_path.toString(),
           height: 100,
           width: 75,
         ),

@@ -23,7 +23,7 @@ class MovieDetailPage extends StatelessWidget {
             children: <Widget>[
               FadeInImage.assetNetwork(
                 placeholder: Images.ic_back_drop_holder,
-                image: Constants.IMAGE_URL + movie.backdrop_path,
+                image: Constants.IMAGE_URL + movie.backdrop_path.toString(),
                 width: screenWidth,
               ),
               Align(
@@ -48,7 +48,7 @@ class MovieDetailPage extends StatelessWidget {
                   children: <Widget>[
                     FadeInImage.assetNetwork(
                       placeholder: Images.ic_poster_holder,
-                      image: Constants.IMAGE_URL + movie.poster_path,
+                      image: Constants.IMAGE_URL + movie.poster_path.toString(),
                       height: 100,
                     ),
                     Container(

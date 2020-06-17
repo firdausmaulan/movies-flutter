@@ -2,7 +2,7 @@ library constants;
 
 import 'package:flutter/material.dart';
 
-const String APP_NAME = "Movies";
+const String APP_NAME = "Popular Movies";
 const MaterialColor PRIMARY_COLOR = Colors.blue;
 
 const String BASE_URL = "http://api.themoviedb.org/3";

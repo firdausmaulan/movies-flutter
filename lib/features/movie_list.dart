@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/features/movie_cell.dart';
 import 'package:movies/features/movie_detail.dart';
 import 'package:movies/features/movie_list_controller.dart' as controller;
+import 'package:movies/features/movie_search.dart';
 import 'package:movies/model/movie.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 import 'package:movies/utils/images.dart' as Images;
@@ -51,6 +52,17 @@ class MovieListState extends State<MovieListPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(Constants.APP_NAME),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MovieSearchPage()),
+                );
+              },
+            )
+          ],
         ),
         body: showLoading
             ? loadingWidget()
