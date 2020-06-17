@@ -2,4 +2,4 @@
 
 Build with flutter / dart language
 
-![](https://i.ibb.co/0J79nnk/flutter-movies.jpg)
+![](https://s7.gifyu.com/images/gfmovies.gif)
