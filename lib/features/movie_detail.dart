@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:movies/model/movie.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 import 'package:movies/utils/images.dart' as Images;
 
 class MovieDetailPage extends StatelessWidget {
-  final movie;
+  final Movie movie;
 
   MovieDetailPage(this.movie);
 
@@ -23,7 +23,7 @@ class MovieDetailPage extends StatelessWidget {
             children: <Widget>[
               FadeInImage.assetNetwork(
                 placeholder: Images.ic_back_drop_holder,
-                image: Constants.IMAGE_URL + movie['backdrop_path'],
+                image: Constants.IMAGE_URL + movie.backdrop_path,
                 width: screenWidth,
               ),
               Align(
@@ -48,7 +48,7 @@ class MovieDetailPage extends StatelessWidget {
                   children: <Widget>[
                     FadeInImage.assetNetwork(
                       placeholder: Images.ic_poster_holder,
-                      image: Constants.IMAGE_URL + movie['poster_path'],
+                      image: Constants.IMAGE_URL + movie.poster_path,
                       height: 100,
                     ),
                     Container(
@@ -57,15 +57,15 @@ class MovieDetailPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("ID : ${movie['id']}"),
+                          Text("ID : ${movie.id}"),
                           SizedBox(height: 4),
-                          Text("Language : ${movie['original_language']}"),
+                          Text("Language : ${movie.original_language}"),
                           SizedBox(height: 4),
-                          Text("Rating : ${movie['vote_average']}"),
+                          Text("Rating : ${movie.vote_average}"),
                           SizedBox(height: 4),
-                          Text("Vote Count : ${movie['vote_count']}"),
+                          Text("Vote Count : ${movie.vote_count}"),
                           SizedBox(height: 4),
-                          Text("Popularity : ${movie['popularity']}"),
+                          Text("Popularity : ${movie.popularity}"),
                         ],
                       ),
                     ),
@@ -73,14 +73,14 @@ class MovieDetailPage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  movie['title'],
+                  movie.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  movie['overview'],
+                  movie.overview,
                 ),
               ],
             ),
