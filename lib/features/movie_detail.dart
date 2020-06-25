@@ -1,17 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:movies/features/movie_detail_controller.dart' as controller;
 import 'package:movies/model/movie.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 import 'package:movies/utils/images.dart' as Images;
 
-class MovieDetailPage extends StatelessWidget {
+class MovieDetailPage extends StatefulWidget {
   final Movie movie;
 
-  MovieDetailPage(this.movie);
+  const MovieDetailPage(this.movie);
+
+  @override
+  MovieDetailState createState() => MovieDetailState(movie);
+}
+
+class MovieDetailState extends State<MovieDetailPage> {
+  final Movie movie;
+
+  MovieDetailState(this.movie);
+
+  bool isFavourite = false;
+  IconData iconFavourite = Icons.favorite_border;
+
+  Future<void> getFavourite() async {
+    isFavourite = await controller.getFavourite(movie);
+    setState(() {
+      if (isFavourite) {
+        iconFavourite = Icons.favorite;
+      } else {
+        iconFavourite = Icons.favorite_border;
+      }
+    });
+  }
+
+  Future<void> updateFavourite() async {
+    isFavourite = await controller.setFavourite(movie);
+    setState(() {
+      if (isFavourite) {
+        iconFavourite = Icons.favorite;
+      } else {
+        iconFavourite = Icons.favorite_border;
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFavourite();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -33,6 +73,16 @@ class MovieDetailPage extends StatelessWidget {
                   icon: Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.pop(context);
+                  },
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  padding: EdgeInsets.all(8),
+                  icon: Icon(iconFavourite, color: Colors.yellow),
+                  onPressed: () {
+                    updateFavourite();
                   },
                 ),
               ),

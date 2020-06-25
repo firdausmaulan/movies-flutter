@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/features/movie_cell.dart';
 import 'package:movies/features/movie_detail.dart';
+import 'package:movies/features/movie_favourites.dart';
 import 'package:movies/features/movie_list_controller.dart' as controller;
 import 'package:movies/features/movie_search.dart';
 import 'package:movies/model/movie.dart';
@@ -26,8 +27,8 @@ class MovieListState extends State<MovieListPage> {
       if (data != null) {
         showError = false;
         var result = data['results'];
-        for (Map i in result) {
-          movies.add(Movie.fromJson(i));
+        for (Map map in result) {
+          movies.add(Movie.fromJson(map));
         }
         page++;
       } else {
@@ -59,6 +60,14 @@ class MovieListState extends State<MovieListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MovieSearchPage()),
+                );
+              },
+            ),IconButton(
+              icon: Icon(Icons.favorite_border, color: Colors.yellow),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MovieFavouritesPage()),
                 );
               },
             )
