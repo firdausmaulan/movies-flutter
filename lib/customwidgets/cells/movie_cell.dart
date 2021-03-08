@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/model/movie.dart';
-import 'package:movies/utils/constants.dart' as Constants;
+import 'package:movies/data_manager/remote/api_constants.dart' as ApiConstants;
 import 'package:movies/utils/images.dart' as Images;
 
 class MovieCell extends StatelessWidget {
@@ -17,7 +17,7 @@ class MovieCell extends StatelessWidget {
       children: <Widget>[
         FadeInImage.assetNetwork(
           placeholder: Images.ic_poster_holder,
-          image: Constants.IMAGE_URL + movies.elementAt(position).poster_path.toString(),
+          image: ApiConstants.IMAGE_URL + movies.elementAt(position).poster_path.toString(),
           height: 100,
           width: 75,
         ),

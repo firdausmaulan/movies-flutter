@@ -2,10 +2,10 @@ import 'package:movies/model/movie.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
-//mendukug pemrograman asinkron
+//needed for async process
 import 'dart:io';
 
-//bekerja pada file dan directory
+//needed for accessing file & directory on device
 import 'package:path_provider/path_provider.dart';
 
 class DbHelper {
@@ -22,16 +22,15 @@ class DbHelper {
   }
 
   Future<Database> initDb() async {
-    //untuk menentukan nama database dan lokasi yg dibuat
+    //set database name & location / path
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'movie.db';
     // create & versioning database
     var database = openDatabase(path, version: 1, onCreate: _createDb);
-    //mengembalikan nilai object sebagai hasil dari fungsinya
     return database;
   }
 
-  //buat tabel baru
+  //create new table
   void _createDb(Database db, int version) async {
     await db.execute('''
       CREATE TABLE movie (
@@ -98,7 +97,7 @@ class DbHelper {
   Future<List<Movie>> getMovieList() async {
     var movieMapList = await select();
     int count = movieMapList.length;
-    List<Movie> movieList = List<Movie>();
+    List<Movie> movieList = <Movie>[];
     for (int i = 0; i < count; i++) {
       movieList.add(Movie.fromJson(movieMapList[i]));
     }
