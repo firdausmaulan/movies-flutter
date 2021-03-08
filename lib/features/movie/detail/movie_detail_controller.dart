@@ -1,4 +1,4 @@
-import 'package:movies/database/DBHelper.dart';
+import 'package:movies/data_manager/local/db_helper.dart';
 import 'package:movies/model/movie.dart';
 
 Future<bool> getFavourite(Movie movie) async {

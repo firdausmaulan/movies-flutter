@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:movies/utils/constants.dart' as Constants;
+import 'package:movies/data_manager/remote/api_constants.dart' as ApiConstants;
 
 Future<Map> requestMovies(var page) async {
-  var url = Constants.BASE_URL +
-      "/movie/top_rated?" +
-      "page=$page" +
-      "&api_key=${Constants.API_KEY}";
+  final uri = new Uri.https(
+      ApiConstants.BASE_URL,
+      "3/movie/top_rated",
+      {"page": page.toString(), "api_key": ApiConstants.API_KEY});
+
   try {
-    var response = await http.get(url);
+    var response = await http.get(uri);
     print("response " + response.statusCode.toString());
     print("response " + response.body);
     if (response.statusCode == 200) {

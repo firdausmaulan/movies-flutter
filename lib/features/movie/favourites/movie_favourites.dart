@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies/features/movie_cell.dart';
-import 'package:movies/features/movie_detail.dart';
-import 'package:movies/features/movie_favourites_controller.dart' as controller;
+import 'package:movies/customwidgets/cells/movie_cell.dart';
+import 'package:movies/features/movie/detail/movie_detail.dart';
+import 'package:movies/features/movie/favourites/movie_favourites_controller.dart' as controller;
 import 'package:movies/model/movie.dart';
 import 'package:movies/utils/constants.dart' as Constants;
 
