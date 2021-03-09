@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:movies/customwidgets/cells/movie_cell.dart';
+import 'package:movies/custom_widgets/cells/movie_cell.dart';
 import 'package:movies/features/movie/detail/movie_detail.dart';
 import 'package:movies/features/movie/search/movie_search_controller.dart' as controller;
 import 'package:movies/model/movie.dart';
