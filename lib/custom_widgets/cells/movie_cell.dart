@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/model/movie.dart';
-import 'package:movies/data_manager/remote/api_constants.dart' as ApiConstants;
+import 'package:movies/data_manager/remote/api_helper.dart' as ApiConstants;
 import 'package:movies/utils/images.dart' as Images;
 
 class MovieCell extends StatelessWidget {
